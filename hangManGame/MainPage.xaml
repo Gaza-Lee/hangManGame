@@ -3,5 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="hangManGame.MainPage">
 
+    <Grid RowDefinitions=".6*, .4*">
+        <VerticalStackLayout>
+            <Label FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Text="Erros: 0 of 6"/>
+            <Image Source="img0.jpg"
+                   HeightRequest="200"/>
+
+            <Label FontSize="40"
+                   HorizontalOptions="Center"
+                   Text="{Binding Spotlight}"
+                   VerticalOptions="Center"/>
+
+            <Label FontSize="Large"
+                   HorizontalOptions="Center"
+                   Text="You won"/>
+
+            <Button HorizontalOptions="Center"
+                    Text="Reset"
+                    WidthRequest="100"/>
+        </VerticalStackLayout>
+        <FlexLayout Grid.Row="1"
+                    Wrap="Wrap"
+                    JustifyContent="SpaceEvenly">
+            <BindableLayout.ItemTemplate>
+                
+            </BindableLayout.ItemTemplate>
+            <Button HeightRequest="50"
+                    WidthRequest="50"
+                    BackgroundColor="Navy"
+                    Text="A"/>
+        </FlexLayout>
+    </Grid>
 
 </ContentPage>

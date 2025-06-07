@@ -1,24 +1,75 @@
-﻿namespace hangManGame
+﻿using System.ComponentModel;
+using System.Diagnostics;
+
+namespace hangManGame
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
-        int count = 0;
+        #region UI Properties
+        public string Spotlight
+        {
+            get => spotlight;
+            set
+            {
+                spotlight = value;
+                OnPropertyChanged();
+            }
+
+        }
+        #endregion
+
+        #region
+        List<string> words = new List<string>
+        {
+            "python",
+            "javascript",
+            "csharp",
+            "java",
+            "ruby",
+            "swift",
+            "kotlin",
+            "typescript",
+            "golang",
+            "rust",
+            "php",
+            "html",
+            "css",
+            "sql",
+            "react",
+            "maui",
+            "mogodb"
+        };
+
+        string answer = "";
+        private string spotlight;
+        List<char> guessed =
+            new List<char>();
+        #endregion
 
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
+            PickWord();
+            CalculateWord(answer, guessed);
+            
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        #region Game Engine
+        private void PickWord()
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            answer =
+                words[new Random().Next (0, words.Count)];
+            Debug.WriteLine(answer);
         }
+
+        private void CalculateWord(string answer, List<char> guessed)
+        {
+            var temp =
+                answer.Select(x => (guessed.IndexOf(x) >= 0 ? x : '_'))
+                .ToArray();
+            Spotlight = string.Join(" ", temp);
+        }
+        #endregion
     }
 }
